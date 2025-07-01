@@ -1,11 +1,42 @@
 
+import { useContext } from 'react';
+import { WeddingContext } from '@/contexts/WeddingContext';
+import { ExternalLink, Gem } from 'lucide-react';
+
 const JewellerSection = () => {
+  const context = useContext(WeddingContext);
+  
+  if (!context) return null;
+  
+  const { weddingData } = context;
+
   return (
     <section id="jeweller" className="py-20 px-4">
       <div className="container mx-auto">
         <div className="backdrop-blur-md bg-white/30 rounded-3xl p-12 border border-white/20 shadow-xl">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Jeweller</h2>
-          <p className="text-gray-700 text-center">Jeweller info coming soon...</p>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <Gem className="text-purple-600" size={32} />
+              <h2 className="text-3xl font-bold text-gray-800">{weddingData.jeweller.title}</h2>
+            </div>
+            
+            <div className="backdrop-blur-sm bg-white/20 rounded-2xl p-8 border border-white/20">
+              <p className="text-gray-700 text-lg mb-6">{weddingData.jeweller.description}</p>
+              
+              <div className="backdrop-blur-sm bg-gradient-to-r from-purple-100/50 to-pink-100/50 rounded-xl p-6 border border-purple-200/30">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{weddingData.jeweller.shopName}</h3>
+                <a
+                  href={weddingData.jeweller.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition-colors font-medium"
+                >
+                  Visit Our Jeweller
+                  <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

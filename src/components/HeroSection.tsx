@@ -19,7 +19,9 @@ const HeroSection = () => {
           <div className="mb-8">
             <EditableText
               value={weddingData.couple.weddingQuote}
-              onSave={(value) => updateWeddingData({ couple: { ...weddingData.couple, weddingQuote: value } })}
+              onSave={async (value) => {
+                await updateWeddingData({ couple: { ...weddingData.couple, weddingQuote: value } });
+              }}
               isLoggedIn={isLoggedIn}
               className="text-xl md:text-2xl lg:text-3xl text-gray-700 font-light italic leading-relaxed"
               multiline
@@ -31,14 +33,18 @@ const HeroSection = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
               <EditableText
                 value={weddingData.couple.groomName}
-                onSave={(value) => updateWeddingData({ couple: { ...weddingData.couple, groomName: value } })}
+                onSave={async (value) => {
+                  await updateWeddingData({ couple: { ...weddingData.couple, groomName: value } });
+                }}
                 isLoggedIn={isLoggedIn}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800"
               />
               <div className="text-3xl md:text-4xl text-purple-400 font-light">&</div>
               <EditableText
                 value={weddingData.couple.brideName}
-                onSave={(value) => updateWeddingData({ couple: { ...weddingData.couple, brideName: value } })}
+                onSave={async (value) => {
+                  await updateWeddingData({ couple: { ...weddingData.couple, brideName: value } });
+                }}
                 isLoggedIn={isLoggedIn}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800"
               />
