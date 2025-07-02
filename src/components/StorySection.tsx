@@ -11,37 +11,71 @@ const StorySection = () => {
   const { weddingData, isLoggedIn, updateWeddingData } = context;
 
   return (
-    <section id="story" className="py-20 px-4">
-      <div className="container mx-auto">
-        <div className="backdrop-blur-md bg-white/30 rounded-3xl p-12 border border-white/20 shadow-xl">
-          <EditableText
-            value={weddingData.story.title}
-            onSave={async (value) => {
-              await updateWeddingData({ story: { ...weddingData.story, title: value } });
-            }}
-            isLoggedIn={isLoggedIn}
-            className="text-3xl font-bold text-center text-gray-800 mb-8"
-          />
+    <section id="story" className="py-20 px-4 relative">
+      {/* Section-specific floating elements */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        <div className="absolute top-10 right-20 w-24 h-24 bg-gradient-to-br from-pink-200/50 to-rose-200/50 rounded-full blur-xl animate-pulse delay-300"></div>
+        <div className="absolute bottom-20 left-16 w-32 h-32 bg-gradient-to-br from-purple-200/40 to-blue-200/40 rounded-full blur-2xl floating-animation"></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
+        <div className="backdrop-blur-xl bg-white/35 rounded-3xl p-12 border border-white/25 shadow-2xl relative overflow-hidden">
+          {/* Inner gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-purple-50/20 rounded-3xl"></div>
           
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="backdrop-blur-sm bg-white/20 rounded-2xl p-6 border border-white/20">
-              <img
-                src={weddingData.story.image}
-                alt="Our Story"
-                className="w-full h-80 object-cover rounded-xl shadow-lg"
+          <div className="relative z-10">
+            {/* Title with glass effect */}
+            <div className="backdrop-blur-md bg-white/25 rounded-2xl p-6 mb-8 border border-white/20 shadow-lg">
+              <EditableText
+                value={weddingData.story.title}
+                onSave={async (value) => {
+                  await updateWeddingData({ story: { ...weddingData.story, title: value } });
+                }}
+                isLoggedIn={isLoggedIn}
+                className="text-3xl font-bold text-center text-gray-800"
               />
             </div>
             
-            <div className="backdrop-blur-sm bg-white/20 rounded-2xl p-6 border border-white/20">
-              <EditableText
-                value={weddingData.story.content}
-                onSave={async (value) => {
-                  await updateWeddingData({ story: { ...weddingData.story, content: value } });
-                }}
-                isLoggedIn={isLoggedIn}
-                className="text-gray-700 leading-relaxed text-lg"
-                multiline
-              />
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              {/* Image with enhanced glass container */}
+              <div className="backdrop-blur-lg bg-white/25 rounded-3xl p-6 border border-white/20 shadow-xl relative">
+                {/* Decorative corner elements */}
+                <div className="absolute top-2 left-2 w-3 h-3 bg-gradient-to-br from-purple-300/60 to-pink-300/60 rounded-full blur-sm"></div>
+                <div className="absolute bottom-2 right-2 w-3 h-3 bg-gradient-to-br from-blue-300/60 to-purple-300/60 rounded-full blur-sm"></div>
+                
+                <div className="backdrop-blur-sm bg-white/20 rounded-2xl p-4 border border-white/15">
+                  <div className="relative overflow-hidden rounded-xl">
+                    <img
+                      src={weddingData.story.image}
+                      alt="Our Story"
+                      className="w-full h-80 object-cover shadow-lg transition-transform hover:scale-105 duration-300"
+                    />
+                    {/* Image glass overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-purple-100/10 rounded-xl"></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Content with glass effect */}
+              <div className="backdrop-blur-lg bg-white/25 rounded-3xl p-8 border border-white/20 shadow-xl relative">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-100/30 to-pink-100/30 rounded-full blur-lg"></div>
+                  <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-md"></div>
+                </div>
+                
+                <div className="relative z-10">
+                  <EditableText
+                    value={weddingData.story.content}
+                    onSave={async (value) => {
+                      await updateWeddingData({ story: { ...weddingData.story, content: value } });
+                    }}
+                    isLoggedIn={isLoggedIn}
+                    className="text-gray-700 leading-relaxed text-lg"
+                    multiline
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
