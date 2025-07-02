@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -143,6 +142,10 @@ All colors MUST be HSL.
     animation: float-slow 12s ease-in-out infinite;
   }
 
+  .orbital-animation {
+    animation: orbital 20s linear infinite;
+  }
+
   .color-shift {
     animation: colorShift 6s ease-in-out infinite;
   }
@@ -158,6 +161,14 @@ All colors MUST be HSL.
     0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
     33% { transform: translateY(-20px) rotate(3deg) scale(1.08); }
     66% { transform: translateY(-35px) rotate(-3deg) scale(1.15); }
+  }
+
+  @keyframes orbital {
+    0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+    25% { transform: translateX(30px) translateY(-20px) rotate(90deg); }
+    50% { transform: translateX(0px) translateY(-40px) rotate(180deg); }
+    75% { transform: translateX(-30px) translateY(-20px) rotate(270deg); }
+    100% { transform: translateX(0px) translateY(0px) rotate(360deg); }
   }
 
   @keyframes colorShift {
