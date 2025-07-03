@@ -1,14 +1,18 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useWedding } from "@/contexts/WeddingContext";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import scrollToElement from "@/utils/scrollToElement";
 
-const Header = () => {
+const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { weddingData, logout, isLoggedIn } = useWedding();
     const { toast } = useToast();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const navItems = [
         { name: "Home", href: "#hero" },
@@ -51,11 +55,12 @@ const Header = () => {
         toast({ title: "You have logged out!" });
     };
 
-    const scrollToSection = (href: string) => {
-        const element = document.querySelector(href);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
+    const scrollToSection = (elementId: string) => {
+        if (location.pathname !== "/") {
+            navigate("/", { state: { scrollTo: elementId } });
+            return;
         }
+        scrollToElement(elementId);
         setIsOpen(false);
     };
 
@@ -63,7 +68,7 @@ const Header = () => {
         <header
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/20 border-b border-white/20 transition-all duration-200 h-auto",
-                !isScrolled && "bg-transparent",
+                (!isScrolled || isNotIndexPage) && "bg-transparent",
             )}
         >
             <nav
@@ -73,15 +78,17 @@ const Header = () => {
                 )}
             >
                 <div className="flex items-center justify-between">
-                    <div
+                    <Link
                         className={cn(
                             "text-2xl font-bold font-Faculty-Glyphic text-white",
-                            isScrolled ? "text-purple-600" : "",
+                            (isScrolled || isNotIndexPage) && "text-purple-600",
                         )}
+                        to="/"
+                        onClick={() => scrollToSection("#hero")}
                     >
                         {weddingData.couple.groomName[0]} &{" "}
                         {weddingData.couple.brideName[0]} Wedding
-                    </div>
+                    </Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex space-x-8">

@@ -1,10 +1,25 @@
 import { useWedding } from "@/contexts/WeddingContext";
+import messageOnUpdate from "@/utils/messageOnUpdate";
 import uploadImage from "@/utils/UploadImage";
 import EditableImage from "./Editable/EditableImage";
 import EditableText from "./EditableText";
 
 const StorySection = () => {
-    const { weddingData, isLoggedIn, updateWeddingData, user } = useWedding();
+    const { weddingData, updateWeddingData, user } = useWedding();
+
+    const updateStoryContent = async (newContent: string) => {
+        const isUpdated = await updateWeddingData({
+            story: { ...weddingData.story, content: newContent },
+        });
+        messageOnUpdate(isUpdated, "Story content");
+    };
+
+    const updateStoryTitle = async (newTitle: string) => {
+        const isUpdated = await updateWeddingData({
+            story: { ...weddingData.story, title: newTitle },
+        });
+        messageOnUpdate(isUpdated, "Story Content");
+    };
 
     const updateStoryImage = async (file: File) => {
         const imageUrl = await uploadImage(file, user, "story_image");
@@ -28,21 +43,13 @@ const StorySection = () => {
 
                     <div className="relative z-10 space-y-3">
                         {/* Title with glass effect */}
-                        <div className="text-3xl font-bold text-center text-gray-800 mb-12">
+                        <div className="font-bold text-center text-gray-800 mb-12">
                             <p className="text-xs text-muted-foreground">
                                 Our Story
                             </p>
                             <EditableText
                                 value={weddingData.story.title}
-                                onSave={async (value) => {
-                                    await updateWeddingData({
-                                        story: {
-                                            ...weddingData.story,
-                                            title: value,
-                                        },
-                                    });
-                                }}
-                                isLoggedIn={isLoggedIn}
+                                onSave={(value) => updateStoryTitle(value)}
                                 className="text-3xl font-bold text-center text-gray-800 font-Faculty-Glyphic"
                             />
                         </div>
@@ -71,7 +78,7 @@ const StorySection = () => {
                             </div>
 
                             {/* Content with glass effect */}
-                            <div className="backdrop-blur-sm bg-white/20 rounded-2xl p-4 md:p-8 border border-white/20 text-justify">
+                            <div className="backdrop-blur-md bg-white/20 rounded-2xl px-6 py-6 border border-white/35 shadow-lg text-justify">
                                 {/* Background pattern */}
                                 <div className="absolute inset-0 opacity-30">
                                     <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-100/30 to-pink-100/30 rounded-full blur-lg"></div>
@@ -81,16 +88,10 @@ const StorySection = () => {
                                 <div className="relative z-10">
                                     <EditableText
                                         value={weddingData.story.content}
-                                        onSave={async (value) => {
-                                            await updateWeddingData({
-                                                story: {
-                                                    ...weddingData.story,
-                                                    content: value,
-                                                },
-                                            });
-                                        }}
-                                        isLoggedIn={isLoggedIn}
-                                        className="text-gray-700 leading-relaxed text-lg"
+                                        onSave={(value) =>
+                                            updateStoryContent(value)
+                                        }
+                                        className="text-gray-600  block"
                                         multiline
                                     />
                                 </div>

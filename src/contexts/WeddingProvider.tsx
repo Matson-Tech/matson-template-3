@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
-import type { User, WeddingData, WeddingWishType } from "@/types/wedding";
+import type {
+    User,
+    WeddingData,
+    WeddingWish,
+    WeddingWishType,
+} from "@/types/wedding";
 import uploadImage from "@/utils/UploadImage";
 import { WeddingContext } from "./WeddingContext";
 
@@ -124,9 +129,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [weddingData, setWeddingData] =
         useState<WeddingData>(defaultWeddingData);
-    const [weddingWishes, setWeddingWishes] = useState<Array<WeddingWishType>>(
-        [],
-    );
+    const [weddingWishes, setWeddingWishes] = useState<WeddingWishType>([]);
     const [user, setUser] = useState<User | null>(null);
     const [session, setSession] = useState<Session | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -304,7 +307,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         return true;
     };
 
-    const addWish = async (wish: WeddingWishType) => {
+    const addWish = async (wish: WeddingWish) => {
         try {
             const { error } = await supabase.from("guest_wishes").insert({
                 name: wish.name,

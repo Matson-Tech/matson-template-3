@@ -1,10 +1,11 @@
 import { useWedding } from "@/contexts/WeddingContext";
+import messageOnUpdate from "@/utils/messageOnUpdate";
 import uploadImage from "@/utils/UploadImage";
-import EditableText from "./EditableText";
 import EditableImage from "./Editable/EditableImage";
+import EditableText from "./EditableText";
 
 const HeroSection = () => {
-    const { weddingData, isLoggedIn, updateWeddingData, user } = useWedding();
+    const { weddingData, updateWeddingData, user } = useWedding();
 
     const updateHeroImage = async (file: File) => {
         const imageUrl = await uploadImage(file, user, "hero_image");
@@ -13,26 +14,55 @@ const HeroSection = () => {
         });
     };
 
+    const updateWeddingQuote = async (newQuote: string) => {
+        const isUpdated = await updateWeddingData({
+            couple: {
+                ...weddingData.couple,
+                weddingQuote: newQuote,
+            },
+        });
+        messageOnUpdate(isUpdated, "wedding quote");
+    };
+
+    const updateGroomName = async (newName: string) => {
+        const isUpdated = await updateWeddingData({
+            couple: {
+                ...weddingData.couple,
+                groomName: newName,
+            },
+        });
+        messageOnUpdate(isUpdated, "groom name");
+    };
+
+    const updateBrideName = async (newName: string) => {
+        const isUpdated = await updateWeddingData({
+            couple: {
+                ...weddingData.couple,
+                brideName: newName,
+            },
+        });
+        messageOnUpdate(isUpdated, "bride name");
+    };
+
     return (
         <section
             id="hero"
             className="min-h-screen flex items-center justify-center pt-20 px-2 md:px-4 relative"
         >
-            <div className="absolute w-full h-full inset-0 z-0 pointer-events-none object-cover overflow-hidden">
-                <EditableImage
-                    onUpdate={updateHeroImage}
-                    label="Update Cover Image"
-                    className="w-full h-full"
-                >
+            <EditableImage
+                onUpdate={updateHeroImage}
+                label="Update Cover Image"
+            >
+                <div className="absolute w-full h-full inset-0 z-0 pointer-events-none object-cover overflow-hidden">
                     <img
                         src={weddingData.couple.image}
                         alt="Wedding Background"
                         className="w-full h-full object-cover blur-sm"
                     />
-                </EditableImage>
-                {/* Dark overlay for better text readability */}
-                <div className="absolute inset-0 bg-black/40"></div>
-            </div>
+                    {/* Dark overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black/40"></div>
+                </div>
+            </EditableImage>
 
             {/* Additional floating elements specific to hero */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -40,9 +70,9 @@ const HeroSection = () => {
                 <div className="absolute bottom-32 right-1/4 w-16 h-16 bg-gradient-to-br from-purple-300/60 to-indigo-300/60 rounded-full blur-lg animate-pulse delay-1500"></div>
             </div>
 
-            <div className="text-center w-full md:max-w-4xl mx-auto relative z-10">
+            <div className="text-center w-full md:max-w-fit mx-auto relative z-10 bg-transparent">
                 {/* Enhanced Glass Card Container with stronger effect */}
-                <div className="backdrop-blur-xl bg-white/50 rounded-3xl p-6 md:p-12 border border-white/40 shadow-2xl relative overflow-hidden">
+                <div className="backdrop-blur-xl bg-white/20 rounded-3xl p-6 md:p-12 border border-white/40 shadow-2xl relative">
                     {/* Inner glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-purple-100/30 rounded-3xl"></div>
 
@@ -52,15 +82,9 @@ const HeroSection = () => {
                             <div className="backdrop-blur-sm bg-white/30 rounded-2xl p-6 border border-white/30 mb-4">
                                 <EditableText
                                     value={weddingData.couple.weddingQuote}
-                                    onSave={async (value) => {
-                                        await updateWeddingData({
-                                            couple: {
-                                                ...weddingData.couple,
-                                                weddingQuote: value,
-                                            },
-                                        });
-                                    }}
-                                    isLoggedIn={isLoggedIn}
+                                    onSave={(value) =>
+                                        updateWeddingQuote(value)
+                                    }
                                     className="text-xl md:text-2xl lg:text-3xl text-gray-800 font-light italic leading-relaxed"
                                     multiline
                                 />
@@ -74,15 +98,9 @@ const HeroSection = () => {
                                     <div className="backdrop-blur-sm bg-gradient-to-r from-white/40 to-purple-100/40 rounded-xl p-4 border border-white/30">
                                         <EditableText
                                             value={weddingData.couple.groomName}
-                                            onSave={async (value) => {
-                                                await updateWeddingData({
-                                                    couple: {
-                                                        ...weddingData.couple,
-                                                        groomName: value,
-                                                    },
-                                                });
-                                            }}
-                                            isLoggedIn={isLoggedIn}
+                                            onSave={(value) =>
+                                                updateGroomName(value)
+                                            }
                                             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 font-Faculty-Glyphic"
                                         />
                                     </div>
@@ -96,15 +114,9 @@ const HeroSection = () => {
                                     <div className="backdrop-blur-sm bg-gradient-to-l from-white/40 to-pink-100/40 rounded-xl p-4 border border-white/30">
                                         <EditableText
                                             value={weddingData.couple.brideName}
-                                            onSave={async (value) => {
-                                                await updateWeddingData({
-                                                    couple: {
-                                                        ...weddingData.couple,
-                                                        brideName: value,
-                                                    },
-                                                });
-                                            }}
-                                            isLoggedIn={isLoggedIn}
+                                            onSave={(value) =>
+                                                updateBrideName(value)
+                                            }
                                             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 font-Faculty-Glyphic"
                                         />
                                     </div>

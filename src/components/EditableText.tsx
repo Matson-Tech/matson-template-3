@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Edit3 } from "lucide-react";
 import {
     Dialog,
@@ -9,25 +9,27 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useWedding } from "@/contexts/WeddingContext";
 
 interface EditableTextProps {
     value: string;
     onSave: (value: string) => Promise<void> | void;
-    isLoggedIn: boolean;
     className?: string;
     multiline?: boolean;
+    label?: string;
 }
 
 const EditableText = ({
     value,
     onSave,
-    isLoggedIn,
     className = "",
     multiline = false,
+    label,
 }: EditableTextProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [editValue, setEditValue] = useState(value);
     const [isSaving, setIsSaving] = useState(false);
+    const { isLoggedIn } = useWedding();
 
     const handleSave = async () => {
         setIsSaving(true);
@@ -69,7 +71,7 @@ const EditableText = ({
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogContent className="backdrop-blur-md bg-white/90 border border-white/20">
                     <DialogHeader>
-                        <DialogTitle>Edit Text</DialogTitle>
+                        <DialogTitle>{label || "Edit Text"}</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4">
                         <div>
