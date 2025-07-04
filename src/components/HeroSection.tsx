@@ -105,8 +105,8 @@ const HeroSection = () => {
                                         />
                                     </div>
 
-                                    <div className="backdrop-blur-sm bg-gradient-to-br from-purple-200/50 to-pink-200/50 rounded-full p-6 border border-white/30">
-                                        <div className="text-3xl md:text-4xl text-purple-700 font-light">
+                                    <div className="backdrop-blur-sm bg-gradient-to-br from-white/50 to-pink-200/50 rounded-3xl p-6 border border-purple-200/30">
+                                        <div className="text-3xl md:text-4xl text-white font-light">
                                             &
                                         </div>
                                     </div>

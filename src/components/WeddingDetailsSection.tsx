@@ -1,8 +1,8 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { useWedding } from "@/contexts/WeddingContext";
 import messageOnUpdate from "@/utils/messageOnUpdate";
-import EditableText from "./EditableText";
 import EditableLink from "./Editable/EditableLink";
+import EditableText from "./EditableText";
 
 const WeddingDetailsSection = () => {
     const { weddingData, updateWeddingData } = useWedding();
@@ -27,7 +27,7 @@ const WeddingDetailsSection = () => {
     return (
         <section id="details" className="py-20 px-4">
             <div className="md:container mx-auto">
-                <div className="backdrop-blur-md bg-white/30 rounded-3xl p-3 md:p-12 border border-white/20 shadow-xl">
+                <div className="backdrop-blur-md bg-white/30 rounded-3xl py-12 p-3 md:p-12 border border-white/20 shadow-xl">
                     <div className="font-bold text-center text-gray-800 mb-12">
                         <h2 className="text-3xl font-bold text-center text-gray-800 mb-2 font-Faculty-Glyphic">
                             Wedding Details

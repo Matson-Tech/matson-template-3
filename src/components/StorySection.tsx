@@ -36,8 +36,8 @@ const StorySection = () => {
                 <div className="absolute bottom-20 left-16 w-32 h-32 bg-gradient-to-br from-purple-200/40 to-blue-200/40 rounded-full blur-2xl floating-animation"></div>
             </div>
 
-            <div className="md:container p-1 mx-auto relative z-10">
-                <div className="backdrop-blur-md bg-white/30 rounded-3xl p-2 md:p-12 border border-white/20 shadow-xl">
+            <div className="md:container px-1 mx-auto relative z-10">
+                <div className="backdrop-blur-md bg-white/30 rounded-3xl py-12 p-2 md:p-12 border border-white/20 shadow-xl">
                     {/* Inner gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-purple-50/20 rounded-3xl"></div>
 
@@ -78,7 +78,7 @@ const StorySection = () => {
                             </div>
 
                             {/* Content with glass effect */}
-                            <div className="backdrop-blur-md bg-white/20 rounded-2xl px-6 py-6 border border-white/35 shadow-lg text-justify">
+                            <div className="backdrop-blur-md bg-white/10 rounded-2xl px-6 py-6 border border-white/35 text-justify">
                                 {/* Background pattern */}
                                 <div className="absolute inset-0 opacity-30">
                                     <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-100/30 to-pink-100/30 rounded-full blur-lg"></div>
