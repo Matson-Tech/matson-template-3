@@ -1,6 +1,6 @@
 .custome_link {
-    background: linear-gradient(0deg, slateblue, slateblue) no-repeat right
-        bottom / 0 var(--bg-h);
+    background: linear-gradient(0deg, #9810fa, #9810fa) no-repeat right bottom /
+        0 var(--bg-h);
     transition: background-size 350ms;
     --bg-h: 100%;
 }

@@ -18,11 +18,11 @@ const Background: React.FC<{ children: ReactNode }> = ({ children }) => {
                 <div className="absolute bottom-1/2 right-10 w-44 h-44 bg-gradient-to-br from-lime-300/60 to-green-400/60 rounded-full blur-xl md:animate-bounce delay-1200 md:floating-animation"></div>
 
                 {/* Small vibrant floating dots */}
-                <div className="absolute top-1/3 left-3/4 w-20 h-20 bg-gradient-to-br from-pink-400/80 to-rose-500/80 rounded-full blur-sm md:animate-ping"></div>
-                <div className="absolute bottom-1/2 right-10 w-16 h-16 bg-gradient-to-br from-purple-400/80 to-indigo-500/80 rounded-full blur-sm md:animate-ping delay-1000"></div>
-                <div className="absolute top-2/3 left-20 w-24 h-24 bg-gradient-to-br from-blue-400/70 to-cyan-500/70 rounded-full blur-md md:animate-ping delay-500"></div>
-                <div className="absolute top-40 left-1/3 w-18 h-18 bg-gradient-to-br from-emerald-400/80 to-teal-500/80 rounded-full blur-sm md:animate-ping delay-800"></div>
-                <div className="absolute bottom-40 right-1/3 w-14 h-14 bg-gradient-to-br from-amber-400/80 to-orange-500/80 rounded-full blur-sm md:animate-ping delay-1500"></div>
+                <div className="absolute top-1/3 left-3/4 w-20 h-20 bg-gradient-to-br from-pink-400/80 to-rose-500/80 rounded-full blur-sm md:animate-spin-slow md:floating-animation"></div>
+                <div className="absolute bottom-1/2 right-10 w-16 h-16 bg-gradient-to-br from-purple-400/80 to-indigo-500/80 rounded-full blur-sm md:animate-spin-slow md:floating-animation delay-1000"></div>
+                <div className="absolute top-2/3 left-20 w-24 h-24 bg-gradient-to-br from-blue-400/70 to-cyan-500/70 rounded-full blur-md md:animate-spin-slow md:floating-animation delay-500"></div>
+                <div className="absolute top-40 left-1/3 w-18 h-18 bg-gradient-to-br from-emerald-400/80 to-teal-500/80 rounded-full blur-sm md:animate-spin-slow md:floating-animation delay-800"></div>
+                <div className="absolute bottom-40 right-1/3 w-14 h-14 bg-gradient-to-br from-amber-400/80 to-orange-500/80 rounded-full blur-sm md:animate-spin-slow md:floating-animation delay-1500"></div>
 
                 {/* Additional slow-moving blurred background elements */}
                 <div className="absolute top-32 left-20 w-64 h-64 bg-gradient-to-br from-rose-200/40 to-pink-300/40 rounded-full blur-3xl md:floating-animation-slow"></div>
