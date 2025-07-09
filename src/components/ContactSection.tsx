@@ -15,7 +15,7 @@ const ContactSection = () => {
         const isUpdated = await updateWeddingData({
             contact: { ...weddingData.contact, [field]: value },
         });
-        messageOnUpdate(isUpdated, "phone");
+        messageOnUpdate(isUpdated, field);
     };
 
     return (
