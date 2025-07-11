@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import AllWishes from "./pages/AllWishes";
 import NotFound from "./pages/NotFound";
-import Gallery from "./pages/Gallery";
+import GalleryPage from "./pages/AllImages";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,7 @@ const App = () => (
                         <Route path="/" element={<Index />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/wishes" element={<AllWishes />} />
-                        <Route path="/gallery" element={<Gallery />} />
+                        <Route path="/gallery" element={<GalleryPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </BrowserRouter>

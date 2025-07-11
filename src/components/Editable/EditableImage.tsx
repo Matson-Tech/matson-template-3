@@ -16,7 +16,7 @@ import ImageDropArea from "../ui-custome/ImageDropArea";
 type EditableImageProps = {
     className?: string;
     label?: string;
-    isImageCaptionAvailable?: boolean;
+    imageCaptionAvailable?: boolean;
     imageCaption?: string;
     index?: number;
     onUpdate: (
@@ -32,7 +32,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
     onUpdate,
     index,
     className,
-    isImageCaptionAvailable = false,
+    imageCaptionAvailable = false,
     imageCaption = null,
     label = "Edit Image",
     children,
@@ -74,8 +74,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
         return (
             isLoading ||
             (!image &&
-                (!isImageCaptionAvailable ||
-                    imageCaption === editedImageCaption))
+                (!imageCaptionAvailable || imageCaption === editedImageCaption))
         );
     };
 
@@ -99,7 +98,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            {isImageCaptionAvailable && (
+                            {imageCaptionAvailable && (
                                 <>
                                     <Label htmlFor={editCaptionId}>
                                         Caption

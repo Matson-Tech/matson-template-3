@@ -91,7 +91,7 @@ const EditableLink: React.FC<EditableLinkProps> = ({
                         onClick={handleOnClick}
                         type="button"
                     >
-                        {children}
+                        {children || text}
                     </button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
