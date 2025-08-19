@@ -1,7 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import scrollToElement from "@/utils/scrollToElement";

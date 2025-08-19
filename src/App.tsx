@@ -1,33 +1,35 @@
-import { Toaster } from "@/components/ui/toaster";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WeddingProvider } from "@/contexts/WeddingProvider";
+import Gallery from "@/components/Gallery";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
-import AllWishes from "./pages/AllWishes";
+import LoginRoute from "./pages/LoginRoute";
 import NotFound from "./pages/NotFound";
-import GalleryPage from "./pages/AllImages";
+import Wishes from "@/components/WishesSection";
 
 const queryClient = new QueryClient();
 
 const App = () => (
     <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-            <WeddingProvider>
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
+            <Sonner />
+            <BrowserRouter>
+                <WeddingProvider>
                     <Routes>
-                        <Route path="/" element={<Index />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/wishes" element={<AllWishes />} />
-                        <Route path="/gallery" element={<GalleryPage />} />
+                        <Route path="/login" element={<LoginRoute />} />
+                        <Route path="/wishes/:username" element={<Wishes />} />
+                        <Route
+                            path="/gallery/:username"
+                            element={<Gallery />}
+                        />
+                        <Route path="/:username" element={<Index />} />
+                        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                         <Route path="*" element={<NotFound />} />
                     </Routes>
-                </BrowserRouter>
-            </WeddingProvider>
+                </WeddingProvider>
+            </BrowserRouter>
         </TooltipProvider>
     </QueryClientProvider>
 );

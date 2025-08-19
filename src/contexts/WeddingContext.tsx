@@ -1,30 +1,23 @@
 import type { AuthError, Session } from "@supabase/supabase-js";
-import {
-    createContext,
-    type Dispatch,
-    type SetStateAction,
-    useContext,
-} from "react";
-import type {
-    User,
-    WeddingData,
-    WeddingWish,
-    WeddingWishType,
-} from "@/types/wedding";
+import { createContext, type Dispatch, type SetStateAction } from "react";
+import type { User, WeddingData, WeddingWish } from "@/types/wedding";
 
 export interface WeddingContextType {
     weddingData: WeddingData;
-    weddingWishes: WeddingWishType;
-    setWeddingWishes: Dispatch<SetStateAction<WeddingWishType>>;
+    weddingWishes: Array<WeddingWish>;
+    setWeddingWishes: Dispatch<SetStateAction<Array<WeddingWish>>>;
     user: User | null;
+    setUser: Dispatch<SetStateAction<User | null>>;
     session: Session | null;
     isLoggedIn: boolean;
     globalIsLoading: boolean;
+    setGlobalIsLoading: Dispatch<SetStateAction<boolean>>;
     updateWeddingData: (data: Partial<WeddingData>) => Promise<boolean>;
     updateGalleryImage: (
         file: File | null,
         imageCaption: string | null,
         index: number,
+        oldImageName?: string,
     ) => Promise<void>;
     loadAllWeddingWishes: () => Promise<void>;
     saveData: (data: WeddingData) => Promise<boolean>;
@@ -39,11 +32,3 @@ export interface WeddingContextType {
 export const WeddingContext = createContext<WeddingContextType | undefined>(
     undefined,
 );
-
-export const useWedding = () => {
-    const context = useContext(WeddingContext);
-    if (context === undefined) {
-        throw new Error("useWedding must be used within a WeddingProvider");
-    }
-    return context;
-};
