@@ -1,5 +1,5 @@
 import { ExternalLink, Gem } from "lucide-react";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 
 const JewellerSection = () => {
     const { weddingData } = useWedding();

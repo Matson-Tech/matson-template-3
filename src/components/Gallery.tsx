@@ -1,17 +1,21 @@
-import type { ReactNode } from "react";
-import { useWedding } from "@/contexts/WeddingContext";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import useWedding from "@/hooks/useWedding";
 import deleteImage from "@/utils/deleteImage";
 import DeletableItem from "./Editable/DeleteableItem";
 import EditableImage from "./Editable/EditableImage";
+import Header from "./Header";
+import Footer from "./Footer";
 
-interface GalleryProps {
-    limit: number;
-    children?: ReactNode;
-}
+export default function Gallery() {
+    const { weddingData, updateGalleryImage, user, updateWeddingData, isLoggedIn } = useWedding();
+    const { username } = useParams();
 
-const Gallery: React.FC<GalleryProps> = ({ limit, children }) => {
-    const { weddingData, updateGalleryImage, user, updateWeddingData } =
-        useWedding();
+    const limit = isLoggedIn
+        ? import.meta.env.VITE_GALLERY_IMAGE_LIMIT || 12
+        : weddingData.gallery.length;
+
+    useEffect(() => window.scrollTo(0, 0), []);
 
     const handleGalleryImageDelete = async (
         name: string,
@@ -30,19 +34,31 @@ const Gallery: React.FC<GalleryProps> = ({ limit, children }) => {
     };
 
     return (
-        <section id="gallery" className="py-20 px-4">
-            <div className="md:container mx-auto">
-                <div className="backdrop-blur-md bg-white/30 rounded-3xl p-3 md:p-12 border border-white/20 shadow-xl py-12">
-                    <div className="font-bold text-center text-gray-800 mb-12">
-                        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2 font-Faculty-Glyphic">
-                            Our Gallery
-                        </h2>
-                        <p className="text-xs text-muted-foreground">
-                            Moments captured through our journey together
+        <div className="flex flex-col min-h-screen bg-white">
+            <Header isNotIndexPage={true} />
+
+            <div className="flex-1 max-w-7xl mx-auto px-4 py-20 w-full">
+                {/* Heading Section */}
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl font-bold text-gray-800 mb-4 font-Faculty-Glyphic">
+                        Wedding Gallery
+                    </h1>
+                    <p className="text-lg text-muted-foreground">
+                        Capturing beautiful moments of {weddingData.couple.groomName} & {weddingData.couple.brideName}
+                    </p>
+                </div>
+
+                {!isLoggedIn && weddingData.gallery.length === 0 ? (
+                    <div className="text-center py-16">
+                        <h3 className="text-xl font-serif text-foreground mb-2">
+                            No photos yet
+                        </h3>
+                        <p className="text-muted-foreground">
+                            Photos will be added soon!
                         </p>
                     </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {weddingData.gallery
                             .slice(0, limit)
                             .map((image, index) => (
@@ -86,11 +102,9 @@ const Gallery: React.FC<GalleryProps> = ({ limit, children }) => {
                                 </div>
                             ))}
                     </div>
-                    {children}
-                </div>
+                )}
             </div>
-        </section>
+            <Footer />
+        </div>
     );
-};
-
-export default Gallery;
+}

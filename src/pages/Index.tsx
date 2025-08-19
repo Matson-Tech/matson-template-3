@@ -13,7 +13,7 @@ import ScheduleSection from "@/components/ScheduleSection";
 import StorySection from "@/components/StorySection";
 import WeddingDetailsSection from "@/components/WeddingDetailsSection";
 import WishesSection from "@/components/WishesSection";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import scrollToElement from "@/utils/scrollToElement";
 
 const Index = () => {

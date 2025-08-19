@@ -1,4 +1,4 @@
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import messageOnUpdate from "@/utils/messageOnUpdate";
 import uploadImage from "@/utils/UploadImage";
 import EditableImage from "./Editable/EditableImage";
@@ -8,10 +8,12 @@ const HeroSection = () => {
     const { weddingData, updateWeddingData, user } = useWedding();
 
     const updateHeroImage = async (file: File) => {
-        const imageUrl = await uploadImage(file, user, "hero_image");
-        updateWeddingData({
-            couple: { ...weddingData.couple, image: imageUrl },
-        });
+        const imageData = await uploadImage(file, user, "hero_image");
+        if (imageData) {
+            updateWeddingData({
+                couple: { ...weddingData.couple, image: imageData.url },
+            });
+        }
     };
 
     const updateWeddingQuote = async (newQuote: string) => {

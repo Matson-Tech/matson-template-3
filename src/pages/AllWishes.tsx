@@ -5,7 +5,7 @@ import Background from "@/components/Background";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import Footer from "@/components/Footer";
 
 const AllWishes = () => {

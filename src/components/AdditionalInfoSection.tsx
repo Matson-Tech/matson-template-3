@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import messageOnUpdate from "@/utils/messageOnUpdate";
 import EditableText from "./EditableText";
 

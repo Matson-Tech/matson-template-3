@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import UploadButton from "./UploadButton";
 import ImageDropArea from "./ImageDropArea";
 import { Button } from "../ui/button";

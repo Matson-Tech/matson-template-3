@@ -1,5 +1,5 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import messageOnUpdate from "@/utils/messageOnUpdate";
 import EditableLink from "./Editable/EditableLink";
 import EditableText from "./EditableText";
