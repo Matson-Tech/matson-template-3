@@ -1,5 +1,5 @@
 import { Clock, PlusIcon } from "lucide-react";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 import type { ScheduleItem } from "@/types/wedding";
 import messageOnUpdate from "@/utils/messageOnUpdate";
 import DeletableItem from "./Editable/DeleteableItem";

@@ -1,6 +1,6 @@
 import { HeartIcon } from "lucide-react";
 import type React from "react";
-import { useWedding } from "@/contexts/WeddingContext";
+import useWedding  from "@/hooks/useWedding";
 
 const Footer: React.FC = () => {
     const { weddingData } = useWedding();
