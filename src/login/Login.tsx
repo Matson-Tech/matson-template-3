@@ -63,7 +63,7 @@ export default function Login() {
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
-                                id="email"
+                                id={"email"}
                                 type="email"
                                 placeholder="Enter your email"
                                 value={email}
@@ -75,7 +75,7 @@ export default function Login() {
                         <div className="space-y-2">
                             <Label htmlFor="password">Password</Label>
                             <Input
-                                id="password"
+                                id={"password"}
                                 type="password"
                                 placeholder="Enter your password"
                                 value={password}
@@ -101,7 +101,7 @@ export default function Login() {
 
                     <div className="mt-6 text-center">
                         <Link
-                            to="/"
+                            to={`/${user?.username}`}
                             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
                         >
                             <ArrowLeft className="h-4 w-4" />

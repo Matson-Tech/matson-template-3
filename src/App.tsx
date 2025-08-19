@@ -1,13 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Gallery from "@/components/Gallery";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Wishes from "@/components/WishesSection";
 import { WeddingProvider } from "@/contexts/WeddingProvider";
-import Gallery from "@/components/Gallery";
 import Index from "./pages/Index";
 import LoginRoute from "./pages/LoginRoute";
 import NotFound from "./pages/NotFound";
-import Wishes from "@/components/WishesSection";
+import AllWishes from "./pages/AllWishes";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,10 @@ const App = () => (
                 <WeddingProvider>
                     <Routes>
                         <Route path="/login" element={<LoginRoute />} />
-                        <Route path="/wishes/:username" element={<Wishes />} />
+                        <Route
+                            path="/wishes/:username"
+                            element={<AllWishes />}
+                        />
                         <Route
                             path="/gallery/:username"
                             element={<Gallery />}

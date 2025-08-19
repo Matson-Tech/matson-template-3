@@ -1,5 +1,5 @@
 import { Mail, MapPin, Phone } from "lucide-react";
-import useWedding  from "@/hooks/useWedding";
+import useWedding from "@/hooks/useWedding";
 import messageOnUpdate from "@/utils/messageOnUpdate";
 import EditableLink from "./Editable/EditableLink";
 import EditableText from "./EditableText";
@@ -19,7 +19,7 @@ const ContactSection = () => {
     };
 
     return (
-        <section id="contact" className="py-20 px-4">
+        <section id={"contact"} className="py-20 px-4">
             <div className="md:container mx-auto">
                 <div className="backdrop-blur-md bg-white/30 rounded-3xl p-12 border border-white/20 shadow-xl">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-12 font-Faculty-Glyphic">

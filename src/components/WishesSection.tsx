@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useWedding  from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
+import useWedding from "@/hooks/useWedding";
 import type { WeddingWish } from "@/types/wedding";
 
 const WishesSection = () => {
@@ -14,7 +14,7 @@ const WishesSection = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
 
-    const { weddingWishes, addWish, setWeddingWishes } = useWedding();
+    const { weddingWishes, addWish, setWeddingWishes, user } = useWedding();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ const WishesSection = () => {
     };
 
     return (
-        <section id="wishes" className="py-20 px-4">
+        <section id={"wishes"} className="py-20 px-4">
             <div className="md:container mx-auto">
                 <div className="backdrop-blur-md bg-white/30 rounded-3xl px-2 py-12 md:p-12 border border-white/20 shadow-xl">
                     <div className="font-bold text-center text-gray-800 mb-12">
@@ -71,7 +71,7 @@ const WishesSection = () => {
                                 <div className="space-y-1">
                                     <Label htmlFor="wishName">Your Name</Label>
                                     <Input
-                                        id="wishName"
+                                        id={"wishName"}
                                         value={guestName}
                                         onChange={(e) =>
                                             setGuestName(e.target.value)
@@ -87,7 +87,7 @@ const WishesSection = () => {
                                         Your Message
                                     </Label>
                                     <textarea
-                                        id="wishMessage"
+                                        id={"wishMessage"}
                                         value={wishMessage}
                                         onChange={(e) =>
                                             setWishMessage(e.target.value)
@@ -121,7 +121,7 @@ const WishesSection = () => {
                                 <h3 className="text-xl font-semibold text-gray-800">
                                     Recent Wishes
                                 </h3>
-                                <Link to="/wishes">
+                                <Link to={`/wishes/${user?.username}`}>
                                     <Button
                                         variant="outline"
                                         size="sm"

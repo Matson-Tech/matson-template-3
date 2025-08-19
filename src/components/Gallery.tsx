@@ -1,20 +1,28 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useSyncUsername from "@/hooks/useSyncUsername";
 import useWedding from "@/hooks/useWedding";
 import deleteImage from "@/utils/deleteImage";
 import DeletableItem from "./Editable/DeleteableItem";
 import EditableImage from "./Editable/EditableImage";
-import Header from "./Header";
 import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Gallery() {
-    const { weddingData, updateGalleryImage, user, updateWeddingData, isLoggedIn } = useWedding();
+    const {
+        weddingData,
+        updateGalleryImage,
+        user,
+        updateWeddingData,
+        isLoggedIn,
+    } = useWedding();
     const { username } = useParams();
 
     const limit = isLoggedIn
         ? import.meta.env.VITE_GALLERY_IMAGE_LIMIT || 12
         : weddingData.gallery.length;
 
+    useSyncUsername(username);
     useEffect(() => window.scrollTo(0, 0), []);
 
     const handleGalleryImageDelete = async (
@@ -44,7 +52,9 @@ export default function Gallery() {
                         Wedding Gallery
                     </h1>
                     <p className="text-lg text-muted-foreground">
-                        Capturing beautiful moments of {weddingData.couple.groomName} & {weddingData.couple.brideName}
+                        Capturing beautiful moments of{" "}
+                        {weddingData.couple.groomName} &{" "}
+                        {weddingData.couple.brideName}
                     </p>
                 </div>
 

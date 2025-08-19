@@ -1,27 +1,40 @@
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useWedding  from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
+import useWedding from "@/hooks/useWedding";
 import { cn } from "@/lib/utils";
 import scrollToElement from "@/utils/scrollToElement";
+import LogoutButton from "./ui-custome/LogoutButton";
 
 const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const { weddingData, logout, isLoggedIn } = useWedding();
+    const { weddingData, user, logout } = useWedding();
     const { toast } = useToast();
     const location = useLocation();
     const navigate = useNavigate();
 
     const navItems = [
-        { name: "Home", href: "#hero" },
-        { name: "Our Story", href: "#story" },
-        { name: "Details", href: "#details" },
-        { name: "Schedule", href: "#schedule" },
-        { name: "Gallery", href: "#gallery" },
-        { name: "Wishes", href: "#wishes" },
-        { name: "Contact", href: "#contact" },
+        { name: "Home", href: "#hero", disabled: false },
+        {
+            name: "Our Story",
+            href: "#story",
+            disabled: weddingData.story.disabled,
+        },
+        {
+            name: "Details",
+            href: "#details",
+            disabled: weddingData.weddingDetails.disabled,
+        },
+        { name: "Schedule", href: "#schedule", disabled: false },
+        { name: "Gallery", href: "#gallery", disabled: false },
+        { name: "Wishes", href: "#wishes", disabled: weddingData.wishDisabled },
+        {
+            name: "Contact",
+            href: "#contact",
+            disabled: weddingData.contact.disabled,
+        },
     ];
 
     useEffect(() => {
@@ -33,36 +46,25 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const LogoutButton: React.FC<{ className?: string }> = ({ className }) => {
-        if (!isLoggedIn) {
-            return;
-        }
-        return (
-            <button
-                key={"logoutButton"}
-                onClick={handleLogout}
-                className={className}
-                type="button"
-            >
-                Logout
-            </button>
-        );
-    };
-
     const handleLogout = () => {
         logout();
         setIsOpen(false);
         toast({ title: "You have logged out!" });
     };
 
-    const scrollToSection = (elementId: string) => {
-        if (location.pathname !== "/") {
-            navigate("/", { state: { scrollTo: elementId } });
-            return;
-        }
-        scrollToElement(elementId);
-        setIsOpen(false);
-    };
+    const scrollToSection = useCallback(
+        (elementId: string) => {
+            if (user?.username && location.pathname !== `/${user.username}`) {
+                navigate(`/${user.username}`, {
+                    state: { scrollTo: elementId },
+                });
+                return;
+            }
+            scrollToElement(elementId);
+            setIsOpen(false);
+        },
+        [user.username, location.pathname, navigate],
+    );
 
     return (
         <header
@@ -83,7 +85,7 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
                             "text-2xl font-bold font-Faculty-Glyphic text-white",
                             (isScrolled || isNotIndexPage) && "text-purple-600",
                         )}
-                        to="/"
+                        to={`/${user?.username}`}
                         onClick={() => scrollToSection("#hero")}
                     >
                         {weddingData.couple.groomName[0]} &{" "}
@@ -92,17 +94,22 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex space-x-8">
-                        {navItems.map((item) => (
-                            <button
-                                key={item.name}
-                                onClick={() => scrollToSection(item.href)}
-                                className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium"
-                                type="button"
-                            >
-                                {item.name}
-                            </button>
-                        ))}
-                        <LogoutButton className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium" />
+                        {navItems
+                            .filter((item) => !item.disabled)
+                            .map((item) => (
+                                <button
+                                    key={item.name}
+                                    onClick={() => scrollToSection(item.href)}
+                                    className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium"
+                                    type="button"
+                                >
+                                    {item.name}
+                                </button>
+                            ))}
+                        <LogoutButton
+                            handleLogout={handleLogout}
+                            className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium"
+                        />
                     </div>
 
                     {/* Mobile Navigation Button */}
@@ -135,7 +142,10 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
                                 {item.name}
                             </button>
                         ))}
-                        <LogoutButton className="block w-full text-left px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-white/20 rounded-lg transition-all duration-200" />
+                        <LogoutButton
+                            handleLogout={handleLogout}
+                            className="block w-full text-left px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-white/20 rounded-lg transition-all duration-200"
+                        />
                     </div>
                 </div>
             </nav>
