@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useWedding from "@/hooks/useWedding";
 import deleteImage from "@/utils/deleteImage";
 import DeletableItem from "./Editable/DeleteableItem";
@@ -7,6 +8,7 @@ import { Button } from "./ui/button";
 
 const GallerySection = () => {
     const { weddingData, updateGalleryImage, user, updateWeddingData, isLoggedIn } = useWedding();
+    const { username } = useParams();
     
     const limit = 3; // Show only 3 images in the section
 
@@ -27,7 +29,7 @@ const GallerySection = () => {
     };
 
     return (
-        <section className="py-16 px-4">
+        <section id="gallery" className="py-16 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-12">
@@ -98,7 +100,7 @@ const GallerySection = () => {
 
                 {/* View All Images Button */}
                 <div className="p-6 text-center mx-auto">
-                    <Link to="/gallery">
+                    <Link to={`/gallery/${username}`}>
                         <Button variant="outline" type="button">
                             View All Images
                         </Button>

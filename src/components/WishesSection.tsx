@@ -4,17 +4,21 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useParams } from "react-router-dom";
 import useWedding  from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
 import type { WeddingWish } from "@/types/wedding";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 const WishesSection = () => {
     const [guestName, setGuestName] = useState("");
     const [wishMessage, setWishMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
+    const { username } = useParams();
+    useSyncUsername(username);
 
-    const { weddingWishes, addWish, setWeddingWishes } = useWedding();
+    const { weddingWishes, addWish, setWeddingWishes, user  } = useWedding();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -121,7 +125,7 @@ const WishesSection = () => {
                                 <h3 className="text-xl font-semibold text-gray-800">
                                     Recent Wishes
                                 </h3>
-                                <Link to="/wishes">
+                                <Link to={`/wishes/${user?.username}`}>
                                     <Button
                                         variant="outline"
                                         size="sm"

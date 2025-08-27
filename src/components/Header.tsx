@@ -1,7 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import useWedding  from "@/hooks/useWedding";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import useWedding from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import scrollToElement from "@/utils/scrollToElement";
@@ -13,6 +13,7 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
     const { toast } = useToast();
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useParams();
 
     const navItems = [
         { name: "Home", href: "#hero" },
@@ -35,7 +36,7 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
 
     const LogoutButton: React.FC<{ className?: string }> = ({ className }) => {
         if (!isLoggedIn) {
-            return;
+            return null;
         }
         return (
             <button
@@ -56,12 +57,24 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
     };
 
     const scrollToSection = (elementId: string) => {
-        if (location.pathname !== "/") {
-            navigate("/", { state: { scrollTo: elementId } });
+        // Check if we're not on the home page (Index page)
+        const isOnHomePage = location.pathname === "/" || location.pathname === `/${username}`;
+        if (!isOnHomePage) {
+            // Navigate to home page with username and scroll target
+            const targetPath = username ? `/${username}` : "/";
+            navigate(targetPath, { state: { scrollTo: elementId } });
             return;
         }
         scrollToElement(elementId);
         setIsOpen(false);
+    };
+    const handleLogoClick = () => {
+        const targetPath = username ? `/${username}` : "/";
+        if (location.pathname !== targetPath) {
+            navigate(targetPath);
+        } else {
+            scrollToElement("#hero");
+        }
     };
 
     return (
@@ -78,17 +91,17 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
                 )}
             >
                 <div className="flex items-center justify-between">
-                    <Link
+                    <button
                         className={cn(
                             "text-2xl font-bold font-Faculty-Glyphic text-white",
                             (isScrolled || isNotIndexPage) && "text-purple-600",
                         )}
-                        to="/"
-                        onClick={() => scrollToSection("#hero")}
+                        onClick={handleLogoClick}
+                        type="button"
                     >
                         {weddingData.couple.groomName[0]} &{" "}
                         {weddingData.couple.brideName[0]} Wedding
-                    </Link>
+                    </button>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex space-x-8">

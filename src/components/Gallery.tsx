@@ -6,10 +6,13 @@ import DeletableItem from "./Editable/DeleteableItem";
 import EditableImage from "./Editable/EditableImage";
 import Header from "./Header";
 import Footer from "./Footer";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 export default function Gallery() {
+    console.log("Gallery");
     const { weddingData, updateGalleryImage, user, updateWeddingData, isLoggedIn } = useWedding();
     const { username } = useParams();
+    useSyncUsername(username);
 
     const limit = isLoggedIn
         ? import.meta.env.VITE_GALLERY_IMAGE_LIMIT || 12

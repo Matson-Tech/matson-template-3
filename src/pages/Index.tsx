@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useParams } from "react-router-dom";
 import AdditionalInfoSection from "@/components/AdditionalInfoSection";
 import Background from "@/components/Background";
 import ContactSection from "@/components/ContactSection";
@@ -15,10 +15,14 @@ import WeddingDetailsSection from "@/components/WeddingDetailsSection";
 import WishesSection from "@/components/WishesSection";
 import useWedding  from "@/hooks/useWedding";
 import scrollToElement from "@/utils/scrollToElement";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 const Index = () => {
     const { globalIsLoading } = useWedding();
     const location = useLocation();
+
+    const { username } = useParams();
+    useSyncUsername(username);
 
     useEffect(() => {
         const elementId = location.state?.scrollTo;

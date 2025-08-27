@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import LoginRoute from "./pages/LoginRoute";
 import NotFound from "./pages/NotFound";
 import Wishes from "@/components/WishesSection";
+import AllWishes from "./pages/AllWishes";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const App = () => (
                 <WeddingProvider>
                     <Routes>
                         <Route path="/login" element={<LoginRoute />} />
-                        <Route path="/wishes/:username" element={<Wishes />} />
+                        <Route path="/wishes/:username" element={<AllWishes />} />
                         <Route
                             path="/gallery/:username"
                             element={<Gallery />}

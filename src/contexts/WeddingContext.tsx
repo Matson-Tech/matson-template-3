@@ -1,5 +1,10 @@
 import type { AuthError, Session } from "@supabase/supabase-js";
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import {
+    createContext,
+    type Dispatch,
+    type SetStateAction,
+    useContext,
+} from "react";
 import type { User, WeddingData, WeddingWish } from "@/types/wedding";
 
 export interface WeddingContextType {
@@ -32,3 +37,10 @@ export interface WeddingContextType {
 export const WeddingContext = createContext<WeddingContextType | undefined>(
     undefined,
 );
+export const useWedding = () => {
+    const context = useContext(WeddingContext);
+    if (context === undefined) {
+        throw new Error("useWedding must be used within a WeddingProvider");
+    }
+    return context;
+};

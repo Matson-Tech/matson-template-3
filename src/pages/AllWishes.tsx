@@ -1,16 +1,19 @@
 import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Background from "@/components/Background";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useWedding  from "@/hooks/useWedding";
 import Footer from "@/components/Footer";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 const AllWishes = () => {
     const { weddingWishes, loadAllWeddingWishes } = useWedding();
+  const { username } = useParams();
 
+    useSyncUsername(username);
     useEffect(() => {
         loadAllWeddingWishes();
     }, [loadAllWeddingWishes]);
@@ -22,7 +25,7 @@ const AllWishes = () => {
                 <div className="md:container mx-auto md:max-w-4xl">
                     <div className="backdrop-blur-md bg-white/30 rounded-3xl p-8 border border-white/20 shadow-2xl">
                         <div className="flex flex-col gap-4 mb-8">
-                            <Link to="/" className="w-fit">
+                            <Link to={`/${username}`} className="w-fit">
                                 <Button
                                     variant="outline"
                                     size="sm"
