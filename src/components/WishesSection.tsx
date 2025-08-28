@@ -1,12 +1,12 @@
 import { Heart, Send } from "lucide-react";
-import { FormEventHandler, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useParams } from "react-router-dom";
-import useWedding  from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
+import useWedding from "@/hooks/useWedding";
 import type { WeddingWish } from "@/types/wedding";
 import useSyncUsername from "@/hooks/useSyncUsername";
 
@@ -18,7 +18,7 @@ const WishesSection = () => {
     const { username } = useParams();
     useSyncUsername(username);
 
-    const { weddingWishes, addWish, setWeddingWishes, user  } = useWedding();
+    const { weddingWishes, addWish, setWeddingWishes, user } = useWedding();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,7 +51,7 @@ const WishesSection = () => {
     };
 
     return (
-        <section id="wishes" className="py-20 px-4">
+        <section id={"wishes"} className="py-20 px-4">
             <div className="md:container mx-auto">
                 <div className="backdrop-blur-md bg-white/30 rounded-3xl px-2 py-12 md:p-12 border border-white/20 shadow-xl">
                     <div className="font-bold text-center text-gray-800 mb-12">
@@ -75,7 +75,7 @@ const WishesSection = () => {
                                 <div className="space-y-1">
                                     <Label htmlFor="wishName">Your Name</Label>
                                     <Input
-                                        id="wishName"
+                                        id={"wishName"}
                                         value={guestName}
                                         onChange={(e) =>
                                             setGuestName(e.target.value)
@@ -91,7 +91,7 @@ const WishesSection = () => {
                                         Your Message
                                     </Label>
                                     <textarea
-                                        id="wishMessage"
+                                        id={"wishMessage"}
                                         value={wishMessage}
                                         onChange={(e) =>
                                             setWishMessage(e.target.value)
