@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useWedding from "@/hooks/useWedding";
 import deleteImage from "@/utils/deleteImage";
 import DeletableItem from "./Editable/DeleteableItem";
@@ -8,7 +9,6 @@ import { Button } from "./ui/button";
 const GallerySection = () => {
     const { weddingData, updateGalleryImage, user, updateWeddingData } =
         useWedding();
-
     const limit = 3; // Show only 3 images in the section
 
     const handleGalleryImageDelete = async (

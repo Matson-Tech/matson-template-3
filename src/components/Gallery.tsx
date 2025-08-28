@@ -17,6 +17,7 @@ export default function Gallery() {
         isLoggedIn,
     } = useWedding();
     const { username } = useParams();
+    useSyncUsername(username);
 
     const limit = isLoggedIn
         ? import.meta.env.VITE_GALLERY_IMAGE_LIMIT || 12

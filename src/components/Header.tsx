@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import useWedding from "@/hooks/useWedding";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
     const { toast } = useToast();
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useParams();
 
     const navItems = [
         { name: "Home", href: "#hero", disabled: false },
@@ -80,17 +81,16 @@ const Header: React.FC<{ isNotIndexPage?: boolean }> = ({ isNotIndexPage }) => {
                 )}
             >
                 <div className="flex items-center justify-between">
-                    <Link
+                    <button
                         className={cn(
                             "text-2xl font-bold font-Faculty-Glyphic text-white",
                             (isScrolled || isNotIndexPage) && "text-purple-600",
                         )}
-                        to={`/${user?.username}`}
                         onClick={() => scrollToSection("#hero")}
                     >
                         {weddingData.couple.groomName[0]} &{" "}
                         {weddingData.couple.brideName[0]} Wedding
-                    </Link>
+                    </button>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex space-x-8">
