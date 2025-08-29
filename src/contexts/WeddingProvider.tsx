@@ -233,7 +233,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             } catch (error) {
                 console.error("Error loading wedding data:", error);
             } finally {
-                console.log("weddingDataCopy", weddingDataCopy);
                 if (weddingDataCopy) {
                     const isPurchased =
                         weddingDataCopy?.user_profile?.purchased_templates?.includes(
