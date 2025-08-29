@@ -7,7 +7,7 @@ import EditableText from "./EditableText";
 
 const ScheduleSection = () => {
     const { weddingData, isLoggedIn, updateWeddingData } = useWedding();
-
+ 
     const updateScheduleItem = async (
         id: string,
         field: keyof ScheduleItem,

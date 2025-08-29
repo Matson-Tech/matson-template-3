@@ -7,6 +7,9 @@ import "@/styles/linkStyle.css";
 
 const ContactSection = () => {
     const { weddingData, updateWeddingData } = useWedding();
+    if(weddingData.contact.disabled){
+        return;
+    }
 
     const updateContact = async (
         field: "phone" | "email" | "address",

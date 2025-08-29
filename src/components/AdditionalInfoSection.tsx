@@ -5,7 +5,9 @@ import EditableText from "./EditableText";
 
 const AdditionalInfoSection = () => {
     const { weddingData, updateWeddingData } = useWedding();
-
+    if(weddingData.moreInfo.disabled){
+        return;
+    }
     const updateTitle = async (newTitle: string) => {
         const isUpdated: boolean = await updateWeddingData({
             moreInfo: { ...weddingData.moreInfo, title: newTitle },
