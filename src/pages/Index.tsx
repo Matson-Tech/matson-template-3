@@ -16,7 +16,6 @@ import WishesSection from "@/components/WishesSection";
 import useSyncUsername from "@/hooks/useSyncUsername";
 import useWedding from "@/hooks/useWedding";
 import scrollToElement from "@/utils/scrollToElement";
-import useSyncUsername from "@/hooks/useSyncUsername";
 
 const Index = () => {
     const { globalIsLoading } = useWedding();
